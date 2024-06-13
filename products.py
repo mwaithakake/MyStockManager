@@ -8,6 +8,7 @@ class Product:
         self.quantity = quantity
         self.supplier_id = supplier_id
 
+#Saves or updates the current product instance in the database.
     def save(self):
         conn = sqlite3.connect('inventory.db')
         cursor = conn.cursor()
@@ -20,6 +21,7 @@ class Product:
         conn.commit()
         conn.close()
 
+#Retrieves all products from the database.
     @staticmethod
     def get_all():
         conn = sqlite3.connect('inventory.db')
@@ -29,6 +31,7 @@ class Product:
         conn.close()
         return rows
 
+#Deletes a product from the database based on its id.
     @staticmethod
     def delete(id):
         conn = sqlite3.connect('inventory.db')
@@ -37,6 +40,7 @@ class Product:
         conn.commit()
         conn.close()
 
+#Searches for products in the database based on a partial or complete name match.
     @staticmethod
     def search(name):
         conn = sqlite3.connect('inventory.db')

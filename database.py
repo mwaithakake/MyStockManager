@@ -45,6 +45,7 @@ class Database:
         """)
         #Commits the transaction to save the changes made by executing the SQL statements. 
         self.conn.commit()
+        
         #closing of connection
     def close_connection(self):
         self.conn.close()
