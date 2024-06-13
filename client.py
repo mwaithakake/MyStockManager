@@ -6,6 +6,7 @@ class Client:
         self.name = name
         self.email = email
 
+#Saves or updates the current client instance in the database.
     def save(self):
         conn = sqlite3.connect('inventory.db')
         cursor = conn.cursor()
@@ -16,6 +17,7 @@ class Client:
         conn.commit()
         conn.close()
 
+#Retrieves all clients from the database.
     @staticmethod
     def get_all():
         conn = sqlite3.connect('inventory.db')
@@ -25,6 +27,7 @@ class Client:
         conn.close()
         return rows
 
+#Deletes a client from the database based on its id.
     @staticmethod
     def delete(id):
         conn = sqlite3.connect('inventory.db')
