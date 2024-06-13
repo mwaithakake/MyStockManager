@@ -1,34 +1,57 @@
-# My Stock Manager
+MyStockManager
+Overview
+MyStockManager is a command-line inventory management system built using Python and SQLite. It allows users to manage products, suppliers, clients, and sales efficiently.
 
-## Project Description
+Features
+Product Management:
+Add, view, update, and delete products.
+Search for products by name.
 
-This project is built using Python and SQLAlchemy. It allows users to manage products and suppliers in an SQLite database. The system supports basic CRUD (Create, Read, Update, Delete) operations for both products and suppliers.
+Supplier Management:
+Add, view, update, and delete suppliers.
 
-## Features
+Client Management:
+Add, view, update, and delete clients.
 
-- Add, view, update, and delete products
-- Add, view, update, and delete suppliers
-- Search for products by name
+Sales Management:
+Record sales transactions.
+View sales history.
+Requirements
+Python 3.x
+SQLite
 
-## Project Structure
+Setup
+Clone the Repository:
+bash
+Copy code
+git clone https://github.com/mwaithakake/MyStockManager
+cd MyStockManager
 
-- `database.py`: Database setup and connection
-- `models.py`: SQLAlchemy models for `Product` and `Supplier`
-- `main.py`: Main application logic including CRUD operations
-- `inventory.db`: SQLite database file (created automatically)
+Install Dependencies:
+bash
+Copy code
+# Ensure you have Python installed
+# No additional dependencies beyond standard library
+Initialize the Database:
+The database (inventory.db) will be automatically created when you run the application for the first time.
 
-## How to Run
-
-1. Install the required dependencies:
-   ```sh
-   pip install sqlalchemy
-Run the main application:
-sh
+Usage
+Run the application:
+bash
 Copy code
 python main.py
-Usage
-Run the application.
-Follow the on-screen prompts to perform CRUD operations on products and suppliers.
+Follow the on-screen menu to perform various operations such as adding products, managing suppliers, clients, and recording sales.
+
+Contributing
+Contributions are welcome! If you'd like to add features, fix bugs, or improve documentation, feel free to fork the repository and submit a pull request.
+
 License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Feel free to customize this README further based on additional details or specific instructions related to your project setup and usage.
+
+
+
+
+
 
