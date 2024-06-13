@@ -1,8 +1,9 @@
-from sqlalchemy.orm import sessionmaker
-from database import engine, create_tables, Session
-from models import Product, Supplier
-
-create_tables()
+from database import Database
+from products import Product
+from supplier import Supplier
+from client import Client
+from sale import Sale
+import datetime
 
 def main_menu():
     print("\n=== Inventory Management System ===")
@@ -15,123 +16,149 @@ def main_menu():
     print("7. Update Supplier")
     print("8. Delete Supplier")
     print("9. Search Products")
-    print("10. Exit")
+    print("10. Add Client")
+    print("11. View Clients")
+    print("12. Update Client")
+    print("13. Delete Client")
+    print("14. Record Sale")
+    print("15. View Sales")
+    print("16. Exit")
 
 def add_product():
-    session = Session()
     print("\n=== Add Product ===")
     name = input("Enter product name: ")
     price = float(input("Enter product price: "))
     quantity = int(input("Enter product quantity: "))
-    supplier_id = int(input("Enter supplier ID: "))
-    new_product = Product(name=name, price=price, quantity=quantity, supplier_id=supplier_id)
-    session.add(new_product)
-    session.commit()
+    supplier_id = input("Enter supplier ID (or leave blank): ")
+    supplier_id = int(supplier_id) if supplier_id else None
+    product = Product(name, price, quantity, supplier_id)
+    product.save()
     print("Product added successfully!")
-    session.close()
 
 def view_products():
-    session = Session()
     print("\n=== Products ===")
-    products = session.query(Product).all()
+    products = Product.get_all()
     if products:
         for product in products:
-            print(f"ID: {product.id}, Name: {product.name}, Price: {product.price}, Quantity: {product.quantity}, Supplier ID: {product.supplier_id}")
+            print(f"ID: {product[0]}, Name: {product[1]}, Price: {product[2]}, Quantity: {product[3]}, Supplier ID: {product[4]}")
     else:
         print("No products found.")
-    session.close()
 
 def update_product():
-    session = Session()
     print("\n=== Update Product ===")
     id = int(input("Enter product ID to update: "))
-    product = session.query(Product).get(id)
-    if product:
-        product.name = input("Enter new product name: ")
-        product.price = float(input("Enter new product price: "))
-        product.quantity = int(input("Enter new product quantity: "))
-        product.supplier_id = int(input("Enter new supplier ID: "))
-        session.commit()
-        print("Product updated successfully!")
-    else:
-        print("Product not found.")
-    session.close()
+    name = input("Enter new product name: ")
+    price = float(input("Enter new product price: "))
+    quantity = int(input("Enter new product quantity: "))
+    supplier_id = input("Enter new supplier ID (or leave blank): ")
+    supplier_id = int(supplier_id) if supplier_id else None
+    product = Product(name, price, quantity, supplier_id, id)
+    product.save()
+    print("Product updated successfully!")
 
 def delete_product():
-    session = Session()
     print("\n=== Delete Product ===")
     id = int(input("Enter product ID to delete: "))
-    product = session.query(Product).get(id)
-    if product:
-        session.delete(product)
-        session.commit()
-        print("Product deleted successfully!")
-    else:
-        print("Product not found.")
-    session.close()
+    Product.delete(id)
+    print("Product deleted successfully!")
 
 def add_supplier():
-    session = Session()
     print("\n=== Add Supplier ===")
     name = input("Enter supplier name: ")
     contact = input("Enter supplier contact: ")
-    new_supplier = Supplier(name=name, contact=contact)
-    session.add(new_supplier)
-    session.commit()
+    supplier = Supplier(name, contact)
+    supplier.save()
     print("Supplier added successfully!")
-    session.close()
 
 def view_suppliers():
-    session = Session()
     print("\n=== Suppliers ===")
-    suppliers = session.query(Supplier).all()
+    suppliers = Supplier.get_all()
     if suppliers:
         for supplier in suppliers:
-            print(f"ID: {supplier.id}, Name: {supplier.name}, Contact: {supplier.contact}")
+            print(f"ID: {supplier[0]}, Name: {supplier[1]}, Contact: {supplier[2]}")
     else:
         print("No suppliers found.")
-    session.close()
 
 def update_supplier():
-    session = Session()
     print("\n=== Update Supplier ===")
     id = int(input("Enter supplier ID to update: "))
-    supplier = session.query(Supplier).get(id)
-    if supplier:
-        supplier.name = input("Enter new supplier name: ")
-        supplier.contact = input("Enter new supplier contact: ")
-        session.commit()
-        print("Supplier updated successfully!")
-    else:
-        print("Supplier not found.")
-    session.close()
+    name = input("Enter new supplier name: ")
+    contact = input("Enter new supplier contact: ")
+    supplier = Supplier(name, contact, id)
+    supplier.save()
+    print("Supplier updated successfully!")
 
 def delete_supplier():
-    session = Session()
     print("\n=== Delete Supplier ===")
     id = int(input("Enter supplier ID to delete: "))
-    supplier = session.query(Supplier).get(id)
-    if supplier:
-        session.delete(supplier)
-        session.commit()
-        print("Supplier deleted successfully!")
-    else:
-        print("Supplier not found.")
-    session.close()
+    Supplier.delete(id)
+    print("Supplier deleted successfully!")
 
 def search_products():
-    session = Session()
     print("\n=== Search Products ===")
     search_term = input("Enter product name or part of the name to search: ")
-    products = session.query(Product).filter(Product.name.like(f'%{search_term}%')).all()
+    products = Product.search(search_term)
     if products:
         for product in products:
-            print(f"ID: {product.id}, Name: {product.name}, Price: {product.price}, Quantity: {product.quantity}, Supplier ID: {product.supplier_id}")
+            print(f"ID: {product[0]}, Name: {product[1]}, Price: {product[2]}, Quantity: {product[3]}, Supplier ID: {product[4]}")
     else:
         print("No products found.")
-    session.close()
+
+def add_client():
+    print("\n=== Add Client ===")
+    name = input("Enter client name: ")
+    email = input("Enter client email: ")
+    client = Client(name, email)
+    client.save()
+    print("Client added successfully!")
+
+def view_clients():
+    print("\n=== Clients ===")
+    clients = Client.get_all()
+    if clients:
+        for client in clients:
+            print(f"ID: {client[0]}, Name: {client[1]}, Email: {client[2]}")
+    else:
+        print("No clients found.")
+
+def update_client():
+    print("\n=== Update Client ===")
+    id = int(input("Enter client ID to update: "))
+    name = input("Enter new client name: ")
+    email = input("Enter new client email: ")
+    client = Client(name, email, id)
+    client.save()
+    print("Client updated successfully!")
+
+def delete_client():
+    print("\n=== Delete Client ===")
+    id = int(input("Enter client ID to delete: "))
+    Client.delete(id)
+    print("Client deleted successfully!")
+
+def record_sale():
+    print("\n=== Record Sale ===")
+    product_id = int(input("Enter product ID: "))
+    client_id = int(input("Enter client ID: "))
+    quantity = int(input("Enter quantity sold: "))
+    sale_date = datetime.date.today().strftime('%Y-%m-%d')
+    sale = Sale(product_id, client_id, quantity, sale_date)
+    sale.save()
+    print("Sale recorded successfully!")
+
+def view_sales():
+    print("\n=== Sales ===")
+    sales = Sale.get_all()
+    if sales:
+        for sale in sales:
+            print(f"Sale ID: {sale[0]}, Product: {sale[1]}, Client: {sale[2]}, Quantity: {sale[3]}, Sale Date: {sale[4]}")
+    else:
+        print("No sales found.")
 
 def main():
+    db = Database('inventory.db')
+    db.create_tables()
+
     while True:
         main_menu()
         choice = input("Enter your choice: ")
@@ -155,10 +182,24 @@ def main():
         elif choice == '9':
             search_products()
         elif choice == '10':
+            add_client()
+        elif choice == '11':
+            view_clients()
+        elif choice == '12':
+            update_client()
+        elif choice == '13':
+            delete_client()
+        elif choice == '14':
+            record_sale()
+        elif choice == '15':
+            view_sales()
+        elif choice == '16':
             print("Exiting...")
             break
         else:
             print("Invalid choice. Please try again.")
+
+    db.close_connection()
 
 if __name__ == "__main__":
     main()
