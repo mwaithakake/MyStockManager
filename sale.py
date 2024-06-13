@@ -8,6 +8,7 @@ class Sale:
         self.quantity = quantity
         self.sale_date = sale_date
 
+#Saves or updates the current product instance in the database.
     def save(self):
         conn = sqlite3.connect('inventory.db')
         cursor = conn.cursor()
@@ -19,6 +20,7 @@ class Sale:
                            (self.product_id, self.client_id, self.quantity, self.sale_date, self.id))
         conn.commit()
         conn.close()
+
 
     @staticmethod
     def get_all():

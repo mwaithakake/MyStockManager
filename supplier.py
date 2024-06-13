@@ -6,7 +6,7 @@ class Supplier:
         self.name = name
         self.contact = contact
 
-#Saves or updates the current product instance in the database.
+#Saves or updates the current supplier instance in the database.
     def save(self):
         conn = sqlite3.connect('inventory.db')
         cursor = conn.cursor()
@@ -17,7 +17,7 @@ class Supplier:
         conn.commit()
         conn.close()
 
-#Retrieves all products from the database.
+#Retrieves all suppliers from the database.
     @staticmethod
     def get_all():
         conn = sqlite3.connect('inventory.db')
@@ -27,7 +27,7 @@ class Supplier:
         conn.close()
         return rows
 
-#Deletes a product from the database based on its id.
+#Deletes a supplier from the database based on its id.
     @staticmethod
     def delete(id):
         conn = sqlite3.connect('inventory.db')
