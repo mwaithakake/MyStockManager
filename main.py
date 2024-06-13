@@ -5,8 +5,9 @@ from client import Client
 from sale import Sale
 import datetime
 
+#displays the main menu options
 def main_menu():
-    print("\n=== Inventory Management System ===")
+    print("\n=== MyStockManager ===")
     print("1. Add Product")
     print("2. View Products")
     print("3. Update Product")
@@ -24,6 +25,7 @@ def main_menu():
     print("15. View Sales")
     print("16. Exit")
 
+#Prompts the user to enter details of a new product
 def add_product():
     print("\n=== Add Product ===")
     name = input("Enter product name: ")
@@ -35,6 +37,7 @@ def add_product():
     product.save()
     print("Product added successfully!")
 
+#Prompts the user to view details of a product 
 def view_products():
     print("\n=== Products ===")
     products = Product.get_all()
@@ -44,6 +47,7 @@ def view_products():
     else:
         print("No products found.")
 
+#Prompts the user to make changes to an existing product
 def update_product():
     print("\n=== Update Product ===")
     id = int(input("Enter product ID to update: "))
@@ -56,12 +60,14 @@ def update_product():
     product.save()
     print("Product updated successfully!")
 
+#Prompts the user to delete a product based on the id of the product
 def delete_product():
     print("\n=== Delete Product ===")
     id = int(input("Enter product ID to delete: "))
     Product.delete(id)
     print("Product deleted successfully!")
 
+#Prompts the user to enter details of a new supplier
 def add_supplier():
     print("\n=== Add Supplier ===")
     name = input("Enter supplier name: ")
@@ -70,6 +76,7 @@ def add_supplier():
     supplier.save()
     print("Supplier added successfully!")
 
+#Prompts the user to view details of a supplier
 def view_suppliers():
     print("\n=== Suppliers ===")
     suppliers = Supplier.get_all()
@@ -79,6 +86,7 @@ def view_suppliers():
     else:
         print("No suppliers found.")
 
+#Prompts the user to make changes to an existing supplier
 def update_supplier():
     print("\n=== Update Supplier ===")
     id = int(input("Enter supplier ID to update: "))
@@ -88,12 +96,15 @@ def update_supplier():
     supplier.save()
     print("Supplier updated successfully!")
 
+
+#Prompts the user to delete a supplier based on the id of the supplier
 def delete_supplier():
     print("\n=== Delete Supplier ===")
     id = int(input("Enter supplier ID to delete: "))
     Supplier.delete(id)
     print("Supplier deleted successfully!")
 
+#Prompts the user to search for products in the database based on a partial or complete name match.
 def search_products():
     print("\n=== Search Products ===")
     search_term = input("Enter product name or part of the name to search: ")
@@ -104,6 +115,7 @@ def search_products():
     else:
         print("No products found.")
 
+#Prompts the user to enter details of a new client
 def add_client():
     print("\n=== Add Client ===")
     name = input("Enter client name: ")
@@ -112,6 +124,7 @@ def add_client():
     client.save()
     print("Client added successfully!")
 
+#Prompts the user to view a client
 def view_clients():
     print("\n=== Clients ===")
     clients = Client.get_all()
@@ -121,6 +134,7 @@ def view_clients():
     else:
         print("No clients found.")
 
+#Prompts the user to make changes to an existing client
 def update_client():
     print("\n=== Update Client ===")
     id = int(input("Enter client ID to update: "))
@@ -130,12 +144,14 @@ def update_client():
     client.save()
     print("Client updated successfully!")
 
+#Prompts the user to delete a client based on the id of the client
 def delete_client():
     print("\n=== Delete Client ===")
     id = int(input("Enter client ID to delete: "))
     Client.delete(id)
     print("Client deleted successfully!")
 
+#Prompts the user to add new sales into the database
 def record_sale():
     print("\n=== Record Sale ===")
     product_id = int(input("Enter product ID: "))
@@ -146,6 +162,7 @@ def record_sale():
     sale.save()
     print("Sale recorded successfully!")
 
+#Prompts the user to view the sales recorded in the database
 def view_sales():
     print("\n=== Sales ===")
     sales = Sale.get_all()
@@ -161,7 +178,7 @@ def main():
 
     while True:
         main_menu()
-        choice = input("Enter your choice: ")
+        choice = input("Enter the number of the choices given: ")
 
         if choice == '1':
             add_product()
