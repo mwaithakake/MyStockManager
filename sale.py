@@ -8,7 +8,7 @@ class Sale:
         self.quantity = quantity
         self.sale_date = sale_date
 
-#Saves or updates the current product instance in the database.
+#Saves or updates the current sale instance in the database.
     def save(self):
         conn = sqlite3.connect('inventory.db')
         cursor = conn.cursor()
@@ -21,7 +21,7 @@ class Sale:
         conn.commit()
         conn.close()
 
-
+#Retrieves all sales from the database.
     @staticmethod
     def get_all():
         conn = sqlite3.connect('inventory.db')
@@ -35,7 +35,8 @@ class Sale:
         rows = cursor.fetchall()
         conn.close()
         return rows
-
+    
+#Deletes a sale from the database based on its id.
     @staticmethod
     def delete(id):
         conn = sqlite3.connect('inventory.db')
