@@ -1,10 +1,11 @@
 import sqlite3
-
+#connection of database 
 class Database:
     def __init__(self, db_name):
         self.conn = sqlite3.connect(db_name)
         self.cur = self.conn.cursor()
 
+#creation of tables
     def create_tables(self):
         # Create tables if they don't exist
         self.cur.execute("""
@@ -42,7 +43,8 @@ class Database:
                 FOREIGN KEY (client_id) REFERENCES clients(id)
             )
         """)
+        #Commits the transaction to save the changes made by executing the SQL statements. 
         self.conn.commit()
-
+        #closing of connection
     def close_connection(self):
         self.conn.close()
